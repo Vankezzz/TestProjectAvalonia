@@ -1,0 +1,55 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TestProjectAvalonia.ViewModels"
+        xmlns:views="clr-namespace:TestProjectAvalonia.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="TestProjectAvalonia.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TestProjectAvalonia" WindowState="Maximized" >
+
+  <!--Биндим горячие клавиши-->
+  <Window.KeyBindings>
+    <KeyBinding Gesture="Ctrl+O" Command="{Binding Open}" />
+    <KeyBinding Gesture="Ctrl+S" Command="{Binding Save}" />
+  </Window.KeyBindings>
+  <Design.DataContext>
+    <vm:MainWindowViewModel />
+  </Design.DataContext>
+
+  <!--Стандартная разметочка гридом-->
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="120" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="300" />
+    </Grid.ColumnDefinitions>
+    <!--Менюшечка-->
+    <Menu Grid.Row="0" Grid.Column="0">
+      <MenuItem Header="File">
+        <MenuItem Header="Open" Command="{Binding Open}" />
+        <MenuItem Header="Save As" Command="{Binding Save}" />
+      </MenuItem>
+    </Menu>
+    <!--Основное текстовое поле-->
+    <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding Data}"
+             AcceptsReturn="True" />
+    <StackPanel Grid.Row="2" Grid.Column="0">
+      <Button Content="Click" Name="input" Height="60" Width="60"/>
+      <TextBlock IsVisible="{Binding !#input.IsPressed}">Sorry, no can do!</TextBlock>
+    </StackPanel>
+  <StackPanel Grid.Row="1" Grid.Column="1">
+    <Panel>
+      <ContentControl Content="{Binding Content}">
+        
+      </ContentControl>
+    </Panel>
+  </StackPanel>
+  </Grid>
+
+</Window>
